@@ -11,3 +11,11 @@ export async function fetchMovies(title: string, page?: number) {
 
   return data.Search || { isLast: true };
 }
+
+export async function fetchMovie(imdb: string) {
+  return axios
+    .get(url.toString(), {
+      params: { i: imdb },
+    })
+    .then((res) => res.data);
+}

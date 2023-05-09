@@ -1,6 +1,6 @@
 import React from 'react';
-import { IMovie, IMovieContext } from '../@types/types';
-import { fetchMovies } from '../api/movies';
+import { IMovie, IMovieContext, ImdbMovie } from '../@types/types';
+import { fetchMovies, fetchMovie } from '../api/movies';
 
 export const MoviesContext = React.createContext<IMovieContext | null>(null);
 
@@ -9,6 +9,7 @@ export const MoviesProvider = ({ children }: React.PropsWithChildren) => {
   const [page, setPage] = React.useState<number>(6);
   const [keyword, setKeyword] = React.useState<string>('');
   const [canFetchMore, setCanFetchMore] = React.useState<boolean>(true);
+  const [imdbMovie, setImdbMovie] = React.useState<ImdbMovie | null>(null);
 
   const clearMovies = React.useCallback(() => {
     setMovies(null);
@@ -43,18 +44,29 @@ export const MoviesProvider = ({ children }: React.PropsWithChildren) => {
     }
   }, [keyword, page]);
 
+  const fetchMovieByIMDB = React.useCallback(async (imdb: string) => {
+    const res = await fetchMovie(imdb);
+    if (res.Response === 'True') {
+      setImdbMovie(res);
+    }
+
+    return res.Response;
+  }, []);
+
   return (
     <MoviesContext.Provider
       value={{
         movies,
         keyword,
         canFetchMore,
+        imdbMovie,
         updatePage,
         updateKeyword,
         updateCanFetchMore,
         updateMoviesCallback,
         clearMovies,
         fetchMoreMoviesCallback,
+        fetchMovieByIMDB,
       }}
     >
       {children}

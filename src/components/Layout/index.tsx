@@ -1,8 +1,16 @@
 import React from 'react';
 
-function Layout({ children }: React.PropsWithChildren) {
+interface IProps extends React.PropsWithChildren {
+  dark?: boolean;
+}
+
+function Layout({ children, dark }: IProps) {
   return (
-    <div className="w-full min-h-screen bg-gradient-to-r from-paperBlue to-paperRed">
+    <div
+      className={`w-full min-h-screen bg-gradient-to-r ${
+        dark ? 'bg-offBlack' : 'from-paperBlue to-paperRed'
+      }`}
+    >
       {children}
     </div>
   );
