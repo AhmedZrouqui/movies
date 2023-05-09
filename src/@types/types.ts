@@ -11,6 +11,7 @@ export interface IMovieContext {
   keyword: string;
   canFetchMore: boolean;
   imdbMovie: ImdbMovie | null;
+  loading: boolean;
   updatePage: (v: number) => void;
   updateMoviesCallback: (v?: IMovie[]) => void;
   fetchMoreMoviesCallback: () => void;
@@ -18,6 +19,7 @@ export interface IMovieContext {
   clearMovies: () => void;
   updateCanFetchMore: (v: boolean) => void;
   fetchMovieByIMDB: (v: string) => void;
+  updateLoading: (v: boolean) => void;
 }
 
 export interface ImdbMovie {

@@ -12,6 +12,7 @@ function Search() {
   const handleMovieSearch = async (e: any) => {
     e.preventDefault();
     ctx?.clearMovies();
+    ctx?.updateLoading(true);
     ctx?.updateKeyword(title);
     for (let i = 1; i < 6; i++) {
       const response = await fetchMovies(title, i);
@@ -23,6 +24,7 @@ function Search() {
         ctx?.updateCanFetchMore(false);
       }
     }
+    ctx?.updateLoading(false);
     navigateTo(ROUTES.RESULTS);
   };
 

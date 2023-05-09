@@ -5,6 +5,7 @@ import { IMovie } from '../../@types/types';
 import { useNavigate } from 'react-router-dom';
 import { Placeholder } from '../../assets';
 import ProgressiveImage from 'react-progressive-graceful-image';
+import Loader from '../../components/Loader';
 
 function Results() {
   const ctx = React.useContext(MoviesContext);
@@ -17,9 +18,15 @@ function Results() {
   const handleMovieClick = async (t: string, imdb?: string) => {
     if (imdb) {
       ctx?.fetchMovieByIMDB(imdb);
-      navigateTo('/preview/' + t);
+      if (!ctx?.loading) {
+        navigateTo('/preview/' + t);
+      }
     }
   };
+
+  if (ctx?.loading) {
+    return <Loader />;
+  }
 
   return (
     <Layout dark>

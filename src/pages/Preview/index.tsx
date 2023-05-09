@@ -5,6 +5,7 @@ import { MoviesContext } from '../../app/contextAPI';
 import Layout from '../../components/Layout';
 import ProgressiveImage from 'react-progressive-graceful-image';
 import { Placeholder } from '../../assets';
+import Loader from '../../components/Loader';
 
 function Preview() {
   const { slug } = useParams();
@@ -30,6 +31,10 @@ function Preview() {
         'text-white';
     }
   };
+
+  if (ctx?.loading) {
+    return <Loader />;
+  }
 
   return (
     <Layout dark>

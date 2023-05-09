@@ -1,7 +1,16 @@
 import Search from '../../components/Search';
 import Layout from '../../components/Layout';
+import React from 'react';
+import { MoviesContext } from '../../app/contextAPI';
+import Loader from '../../components/Loader';
 
 function Home() {
+  const ctx = React.useContext(MoviesContext);
+
+  if (ctx?.loading) {
+    return <Loader />;
+  }
+
   return (
     <Layout>
       <div className="w-full h-screen flex flex-col items-center justify-center">
