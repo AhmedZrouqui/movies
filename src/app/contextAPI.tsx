@@ -11,6 +11,7 @@ export const MoviesProvider = ({ children }: React.PropsWithChildren) => {
   const [canFetchMore, setCanFetchMore] = React.useState<boolean>(true);
   const [imdbMovie, setImdbMovie] = React.useState<ImdbMovie | null>(null);
   const [loading, setLoading] = React.useState<boolean>(false);
+  const [loadingMore, setLoadingMore] = React.useState<boolean>(false);
 
   const clearMovies = React.useCallback(() => {
     setMovies(null);
@@ -35,7 +36,7 @@ export const MoviesProvider = ({ children }: React.PropsWithChildren) => {
   }, []);
 
   const fetchMoreMoviesCallback = React.useCallback(async () => {
-    setLoading(true);
+    setLoadingMore(true);
     const response = await fetchMovies(keyword, page);
     if (!response.isLast) {
       setPage(page + 1);
@@ -44,7 +45,7 @@ export const MoviesProvider = ({ children }: React.PropsWithChildren) => {
     } else {
       setCanFetchMore(false);
     }
-    setLoading(false);
+    setLoadingMore(false);
   }, [keyword, page]);
 
   const fetchMovieByIMDB = React.useCallback(async (imdb: string) => {
@@ -68,6 +69,7 @@ export const MoviesProvider = ({ children }: React.PropsWithChildren) => {
         canFetchMore,
         imdbMovie,
         loading,
+        loadingMore,
         updatePage,
         updateKeyword,
         updateCanFetchMore,
