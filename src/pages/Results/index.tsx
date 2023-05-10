@@ -24,6 +24,8 @@ function Results() {
     }
   };
 
+  console.log(!ctx?.movies);
+
   if (ctx?.loading) {
     return <Loader />;
   }
@@ -37,6 +39,7 @@ function Results() {
         >
           Go back
         </div>
+
         <div className="grid grid-cols-5 gap-4">
           {ctx?.movies &&
             ctx?.movies.map(
@@ -72,12 +75,19 @@ function Results() {
         {ctx?.canFetchMore && (
           <button
             type="button"
-            className="p-2 px-8 mt-4 font-medium outline-none rounded text-md bg-[#E40915] text-[rgb(255,255,255,.85)]"
+            className="p-2 px-8 mt-4 font-medium outline-none rounded text-md bg-[#E40915] text-white"
             onClick={seeMore}
           >
             See more
           </button>
         )}
+        <div>
+          {!ctx?.movies && (
+            <h1 className="text-white">
+              No matching results for "{ctx?.keyword}"
+            </h1>
+          )}
+        </div>
       </div>
     </Layout>
   );

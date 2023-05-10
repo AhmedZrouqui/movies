@@ -15,7 +15,6 @@ function Preview() {
 
   React.useEffect(() => {
     if (!slug) navigateTo('/');
-    if (!ctx?.imdbMovie) navigateTo('/');
     else setMovie(ctx?.imdbMovie);
   }, [slug, ctx?.imdbMovie, navigateTo]);
 
